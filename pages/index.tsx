@@ -338,22 +338,22 @@ ${answers['actions']}
 
   // 수정사항 저장 핸들러
   const handleSaveEdit = () => {
-    if (!modal.report) return;
+    const currentReport = modal.report;
+    if (!currentReport) return;  // early return if null
 
     const updatedReport: DiaryEntry = {
-      ...modal.report,
+      ...currentReport,
       diary: editedDiary
     };
 
     // 저장된 보고서 목록 업데이트
     const updatedEntries = savedEntries.map(entry =>
-      entry.id === modal.report.id ? updatedReport : entry
+      entry.id === currentReport.id ? updatedReport : entry
     );
 
     setSavedEntries(updatedEntries);
     localStorage.setItem('safetyReports', JSON.stringify(updatedEntries));
     
-    // 수정 모드 종료 및 모달 내용 업데이트
     setEditMode(false);
     setModal({ isOpen: true, report: updatedReport });
     
