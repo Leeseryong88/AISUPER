@@ -431,9 +431,11 @@ ${answers['actions']}
                   <div className="space-y-4">
                     <DatePicker
                       selected={selectedDate}
-                      onChange={(date: Date) => {
-                        setSelectedDate(date);
-                        handleAnswer(date.toLocaleDateString());
+                      onChange={(date: Date | null) => {
+                        if (date) {
+                          setSelectedDate(date);
+                          handleAnswer(date.toLocaleDateString());
+                        }
                       }}
                       locale={ko}
                       dateFormat="yyyy년 MM월 dd일"
